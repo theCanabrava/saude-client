@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import CumulativePicker from './reusables/CumulativePicker';
 import Dropdown from './reusables/Dropdown';
 
-export default ({onSubmitEstabilthment, onAddProcedure, onAddProfessional}) =>
+export default ({onSubmitEstabilthment, onAddProcedure, onRemoveProcedure, onAddProfessional, onRemoveProfessional, procedures, professionals}) =>
 {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [type, setType] = useState({id: '-1', name: 'Tipo'});
-    const [procedures, setProcedures] = useState([]);
-    const [professionals, setProfessionals] = useState([]);
 
     const submitForm = (e) =>
     {
@@ -17,7 +15,7 @@ export default ({onSubmitEstabilthment, onAddProcedure, onAddProfessional}) =>
             {
                 name,
                 address,
-                type,
+                type: type.name,
                 procedures,
                 professionals
             }
@@ -66,8 +64,8 @@ export default ({onSubmitEstabilthment, onAddProcedure, onAddProfessional}) =>
                 <CumulativePicker
                     placeholder='procedimento'
                     selected={procedures}
-                    addElement={term => onAddProcedure(term, [procedures, setProcedures])}
-                    removeElement={procedure => setProcedures(procedures.filter(p => p.id !== procedure.id))}
+                    addElement={term => onAddProcedure(term)}
+                    removeElement={procedure => onRemoveProcedure(procedure.id)}
                 />
             </div>
             <div className="field">
@@ -75,8 +73,8 @@ export default ({onSubmitEstabilthment, onAddProcedure, onAddProfessional}) =>
                 <CumulativePicker
                     placeholder='profissional'
                     selected={professionals}
-                    addElement={term => onAddProfessional(term, [professionals, setProfessionals])}
-                    removeElement={procedure => setProfessionals(professionals.filter(p => p.id !== procedure.id))}
+                    addElement={term => onAddProfessional(term)}
+                    removeElement={procedure => onRemoveProfessional(procedure.id)}
                 />
             </div>
             <button className="ui button primary" type="submit" onClick={submitForm}>Criar</button>

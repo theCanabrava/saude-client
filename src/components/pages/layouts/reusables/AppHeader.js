@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default () =>
+import { logout } from '../../../../actions';
+
+const AppHeader = ({permission, logout}) =>
 {
     const {pathname} = useLocation();
     const isLogin = pathname !== '/login';
-    console.log(pathname);
 
     const header = 
     (
@@ -14,11 +16,11 @@ export default () =>
             isLogin &&
             <div className="ui secundary menu">
                 <Link to='/' className={`item ${pathname === '/' ? 'active' : '' }`}>Home</Link>
-                <Link to='/estabelecimento/criar' className={`item ${pathname === '/estabelecimento/criar' ? 'active' : '' }`}>Estabelecimentos</Link>
-                <Link to='/agendamento/marcar' className={`item ${pathname === '/agendamento/marcar' ? 'active' : '' }`}>Agendamentos</Link>
-                <Link to='/relatorio/gerar' className={`item ${pathname === '/relatorio/gerar' ? 'active' : '' }`}>Relatórios</Link>
+                { permission === 'ADMINISTRATOR' && <Link to='/estabelecimento/criar' className={`item ${pathname === '/estabelecimento/criar' ? 'active' : '' }`}>Estabelecimentos</Link>}
+                { permission !== 'HEALTH_ORGANIZATION' && <Link to='/agendamento/marcar' className={`item ${pathname === '/agendamento/marcar' ? 'active' : '' }`}>Agendamentos</Link>}
+                { permission === 'HEALTH_ORGANIZATION' && <Link to='/relatorio/gerar' className={`item ${pathname === '/relatorio/gerar' ? 'active' : '' }`}>Relatórios</Link>}
                 <div className="right menu">
-                    <Link to='/login' className={`item`}>Sair</Link>
+                    <a className={`item`} onClick={logout}>Sair</a>
                 </div>
             </div>
         }
@@ -28,3 +30,7 @@ export default () =>
     return header;
 
 }
+
+const actions = { logout };
+const mapStateToProps = ({auth}) => ({permission: auth.permission});
+export default connect(mapStateToProps, actions)(AppHeader); 

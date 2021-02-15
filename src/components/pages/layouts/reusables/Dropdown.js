@@ -19,7 +19,7 @@ export default ({options, selectionHook}) =>
     const dropdown =
     (
         <div 
-            class={`ui selection dropdown ${open ? 'active visible' : ''}`}
+            className={`ui selection dropdown ${open ? 'active visible' : ''}`}
             onClick={() => setOpen(!open)}
         >
             <i className="dropdown icon"></i>

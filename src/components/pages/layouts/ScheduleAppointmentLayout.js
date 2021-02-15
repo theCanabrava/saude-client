@@ -21,7 +21,7 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
     const onSelectedProcedure = procedure =>
     {
         setProcedure(procedure);
-        updateProfessionals(procedure);
+        updateProfessionals(establishment, procedure);
     }
 
     const onSelectedProfessional = professional =>
@@ -34,7 +34,7 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
             if(minute === '00') minute = '30';
             else hour = String(Number(hour) + 1).padStart(2, '0');
             const time = `${hour}:${minute}`;
-            times.push({id: time, name:time});
+            if(time !== professional.availability.endTime) times.push({id: time, name:time});
         }
         setAvailableHours(times);
     }

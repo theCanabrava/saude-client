@@ -3,11 +3,9 @@ import Calendar from 'react-calendar';
 
 import ComulativePicker from './reusables/CumulativePicker';
 
-export default ({onGenerateReport, onAddEstablishment, onAddProcedure}) =>
+export default ({establishments, procedures, onGenerateReport, onAddEstablishment, onRemoveEstablishment, onAddProcedure, onRemoveProcedure}) =>
 {
-    const [establishments, setEstablishments] = useState([]);
     const [filterProcedures, setFilterProcedures] = useState(false);
-    const [procedures, setProcedures] = useState([]);
     const [range, setRange] = useState([new Date(), new Date()]);
 
     const submitForm = (e) =>
@@ -30,8 +28,8 @@ export default ({onGenerateReport, onAddEstablishment, onAddProcedure}) =>
                 <ComulativePicker
                     placeholder={'estabelecimento'}
                     selected={establishments}
-                    addElement={term => onAddEstablishment(term, [establishments, setEstablishments])}
-                    removeElement={establishment => setEstablishments(establishments.filter(e => e.id !== establishment.id))}
+                    addElement={term => onAddEstablishment(term)}
+                    removeElement={establishment => onRemoveEstablishment(establishment)}
                 />
             </div>
             <div className="field">
@@ -52,8 +50,8 @@ export default ({onGenerateReport, onAddEstablishment, onAddProcedure}) =>
                     <ComulativePicker
                         placeholder={'procedimento'}
                         selected={procedures}
-                        addElement={term => onAddProcedure(term, [procedures, setProcedures])}
-                        removeElement={procedure => setProcedures(procedures.filter(p => p.id !== procedure.id))}
+                        addElement={term => onAddProcedure(term)}
+                        removeElement={procedure => onRemoveProcedure(procedure)}
                     />
                 </div>                
             }
