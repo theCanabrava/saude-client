@@ -16,9 +16,9 @@ const AppHeader = ({permission, logout}) =>
             isLogin &&
             <div className="ui secundary menu">
                 <Link to='/' className={`item ${pathname === '/' ? 'active' : '' }`}>Home</Link>
-                { permission === 'ADMINISTRATOR' && <Link to='/estabelecimento/criar' className={`item ${pathname === '/estabelecimento/criar' ? 'active' : '' }`}>Estabelecimentos</Link>}
-                { permission !== 'HEALTH_ORGANIZATION' && <Link to='/agendamento/marcar' className={`item ${pathname === '/agendamento/marcar' ? 'active' : '' }`}>Agendamentos</Link>}
-                { permission === 'HEALTH_ORGANIZATION' && <Link to='/relatorio/gerar' className={`item ${pathname === '/relatorio/gerar' ? 'active' : '' }`}>Relatórios</Link>}
+                { permission === 'administrator' && <Link to='/estabelecimento/criar' className={`item ${pathname === '/estabelecimento/criar' ? 'active' : '' }`}>Estabelecimentos</Link>}
+                { permission !== 'healthOrganization' && <Link to='/agendamento/marcar' className={`item ${pathname === '/agendamento/marcar' ? 'active' : '' }`}>Agendamentos</Link>}
+                { permission === 'healthOrganization' && <Link to='/relatorio/gerar' className={`item ${pathname === '/relatorio/gerar' ? 'active' : '' }`}>Relatórios</Link>}
                 <div className="right menu">
                     <a className={`item`} onClick={logout}>Sair</a>
                 </div>

@@ -44,10 +44,10 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
         e.preventDefault();
         onSubmitAppointment(
             {
-                establishment,
-                procedure,
-                professional,
-                hour,
+                establishmentId: establishment.id,
+                procedureId: procedure.id,
+                professionalId: professional.id,
+                time: hour.id,
                 date
             }
         );

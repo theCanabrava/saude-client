@@ -8,16 +8,25 @@ export default ({onSubmitEstabilthment, onAddProcedure, onRemoveProcedure, onAdd
     const [address, setAddress] = useState('');
     const [type, setType] = useState({id: '-1', name: 'Tipo'});
 
+    const makeIdList = array =>
+    {
+        const ids = [];
+        for(let obj of array) ids.push(obj.id);
+        return ids;
+    }
+
     const submitForm = (e) =>
     {
         e.preventDefault();
+        const procedureIds = makeIdList(procedures)
+        const professionalIds = makeIdList(professionals);
         onSubmitEstabilthment(
             {
                 name,
                 address,
                 type: type.name,
-                procedures,
-                professionals
+                procedureIds,
+                professionalIds
             }
         )
     }

@@ -1,20 +1,22 @@
 import history from '../history';
 import types from './types';
+import { Auth } from '../api';
 
-export const login = (email, password) =>
+export const login = (email, password) => async dispatch =>
 {
-    const action =
+    const res = await Auth.login(email, password);
+    const action = 
     {
         type: types.LOGIN,
         payload:
         {
-            userId: '1',
-            permission: 'HEALTH_ORGANIZATION'
+            userId: res.userId,
+            permission: res.permission
         }
     }
 
     history.push('/');
-    return action;
+    dispatch(action);
 }
 
 export const logout = () =>

@@ -1,19 +1,20 @@
+import HealthOrganization from "../api/HealthOrganization";
 import history from "../history";
 import types from "./types"
 
-export const addEstablishmentToReport = name =>
+export const addEstablishmentToReport = name => async dispatch =>
 {
+    const establishment = await HealthOrganization.getEstablishments(name);
     const action = 
     {
         type: types.ADD_ESTABLISHMENT_TO_REPORT,
         payload: 
         {
-            id: name,
-            name: name
+            id: establishment.id,
+            name: establishment.name
         }
     }
-
-    return action;
+    dispatch(action);
 }
 
 export const removeEstablishmentFromReport = id =>
@@ -27,19 +28,19 @@ export const removeEstablishmentFromReport = id =>
     return action;
 }
 
-export const addProcedureToReport = name =>
+export const addProcedureToReport = name => async dispatch =>
 {
+    const procedure = await HealthOrganization.getProcedure(name);
     const action = 
     {
         type: types.ADD_PROCEDURE_TO_REPORT,
         payload: 
         {
-            id: name,
-            name: name
+            id: procedure.id,
+            name: procedure.name
         }
     }
-
-    return action;
+    dispatch(action);
 }
 
 export const removeProcedureFromReport = id =>
@@ -53,14 +54,20 @@ export const removeProcedureFromReport = id =>
     return action;
 }
 
-export const generateReport = reportRequest =>
+export const generateReport = reportRequest => async dispatch =>
 {
-    const action =
+    for(const establishmentId of reportRequest.establishmentIds)
     {
-        type: types.GENERATE_REPORT,
-        payload: reportRequest
+        const report =
+        {
+            establishmentId,
+            procedureIds: reportRequest.procedureIds,
+            range: reportRequest.range
+        }
+        const content = await HealthOrganization.generateReport(report);
+        const action = { type: types.GENERATE_REPORT, payload: content };
+        dispatch(action);
     }
 
     history.push('/');
-    return action;
 }

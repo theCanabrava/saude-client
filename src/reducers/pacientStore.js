@@ -13,13 +13,14 @@ const INITIAL_STATE =
 
 export default (state = INITIAL_STATE, action) =>
 {
+    console.log(state);
     if(handlers.hasHandler(action.type)) return handlers[action.type](state, action.payload);
     else return state;
 }
 
 const getEstablishments = (state, payload) => ({...state, appointmentEditor: { establishments: payload, procedures:[], professionals:[] }})
 const getProcedures = (state, payload) => ({...state, appointmentEditor: { ...state.appointmentEditor, procedures: payload }});
-const getProfessionals = (state, payload) => ({...state, appointmentEditor: { ...state.appointmentEditor, professionals: payload }});
+const getProfessionals = (state, payload) => ({...state, appointmentEditor: { ...state.appointmentEditor, professionals: payload }}); 
 const scheduleAppointment = (state, payload) => ({...state, appointments: [...state.appointments, payload], appointmentEditor:INITIAL_STATE.appointmentEditor});
 
 const handlers =
@@ -30,4 +31,3 @@ const handlers =
     [types.SCHEDULE_APPOINTMENT]: scheduleAppointment,
     hasHandler: key => handlers[key] !== undefined
 }
-

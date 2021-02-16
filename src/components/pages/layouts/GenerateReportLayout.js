@@ -8,13 +8,22 @@ export default ({establishments, procedures, onGenerateReport, onAddEstablishmen
     const [filterProcedures, setFilterProcedures] = useState(false);
     const [range, setRange] = useState([new Date(), new Date()]);
 
+    const makeIdList = array =>
+    {
+        const ids = [];
+        for(let obj of array) ids.push(obj.id);
+        return ids;
+    }
+
     const submitForm = (e) =>
     {
         e.preventDefault();
+        const establishmentIds = makeIdList(establishments);
+        const procedureIds = makeIdList(procedures);
         onGenerateReport(
             {
-                establishments,
-                procedures,
+                establishmentIds,
+                procedureIds,
                 range
             }
         )

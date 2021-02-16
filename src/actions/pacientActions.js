@@ -1,67 +1,50 @@
+import { Pacient } from '../api';
 import history from '../history';
 import types from './types';
 
-export const getEstablishments = () =>
+export const getEstablishments = () => async dispatch =>
 {
+    const establishments = await Pacient.getEstablishments();
     const action =
     {
         type: types.GET_ESTABLISHMENTS,
-        payload:
-        [
-            {
-                id: '1',
-                name: 'Materdei'
-            }
-        ]
+        payload: [...establishments]
     }
-    return action;
+    dispatch(action);
 }
 
-export const getProcedures = (establishment) =>
+export const getProcedures = (establishment) => async dispatch =>
 {
+    const procedures = await Pacient.getProcedures(establishment.id);
     const action =
     {
         type: types.GET_PROCEDURES,
-        payload:
-        [
-            {
-                id: '1',
-                name: 'Consulta'
-            }
-        ]
+        payload: [...procedures]
     }
-    return action;
+    dispatch(action);
 }
 
-export const getProfessionals = (establishment, procedure) =>
+export const getProfessionals = (establishment, procedure) => async dispatch =>
 {
+    const professionals = await Pacient.getProfessionals(establishment.id, procedure.id);
+    console.log(professionals)
     const action =
     {
         type: types.GET_PROFESSIONALS,
-        payload:
-        [
-            {
-                id: '1',
-                name: 'Dr. Pedro Gabriel',
-                availability:
-                {
-                    startTime: '08:00',
-                    endTime: '17:00'
-                }
-            }
-        ]
+        payload: [...professionals]
     }
-    return action;
+    dispatch(action);
 }
 
-export const scheduleAppointment = (appointment) =>
+export const scheduleAppointment = (appointment) => async dispatch =>
 {
+    const createdAppointment = await Pacient.scheduleAppointment(appointment);
     const action =
     {
         type: types.SCHEDULE_APPOINTMENT,
-        payload: appointment
+        payload: createdAppointment
     }
 
     history.push('/');
-    return action;
+    dispatch(action);
 }

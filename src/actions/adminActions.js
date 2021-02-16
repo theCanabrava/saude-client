@@ -1,19 +1,20 @@
-import { act } from 'react-dom/test-utils';
+import { Administrator } from '../api';
 import history from '../history';
 import types from './types';
 
-export const addProcedure = (name) =>
+export const addProcedure = (name) => async dispatch =>
 {
+    const procedure = await Administrator.getProcedure(name);
     const action =
     {
         type: types.ADD_PROCEDURE,
         payload:
         {
-            id: name,
-            name: name
+            id: procedure.id,
+            name: procedure.name
         }
     }
-    return action;
+    dispatch(action);
 }
 
 export const removeProcedure = (id) =>
@@ -26,18 +27,19 @@ export const removeProcedure = (id) =>
     return action;
 }
 
-export const addProfessional = (name) =>
+export const addProfessional = (name) => async dispatch =>
 {
+    const professional = await Administrator.getProfessional(name);
     const action =
     {
         type: types.ADD_PROFESSIONAL,
         payload:
         {
-            id: name,
-            name: name
+            id: professional.id,
+            name: professional.name
         }
     }
-    return action;
+    dispatch(action);
 }
 
 export const removeProfessional = (id) =>
@@ -60,18 +62,15 @@ export const resetEstablishment = () =>
     return action;
 }
 
-export const createEstablishment = (establishment) =>
+export const createEstablishment = (establishment) => async dispatch =>
 {
+    const establishmentData = await Administrator.createEstablishment(establishment);
     const action =
     {
         type: types.CREATE_ESTABLISHMENT,
-        payload:
-        {
-            ...establishment,
-            id: establishment.name
-        }
+        payload: { ...establishmentData }
     }
 
     history.push('/');
-    return action;
+    dispatch(action);
 } 
