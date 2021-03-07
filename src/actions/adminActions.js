@@ -74,3 +74,26 @@ export const createEstablishment = (establishment) => async dispatch =>
     history.push('/');
     dispatch(action);
 } 
+
+export const getEstablishmentAppointments = (establishmentId) => async dispatch =>
+{
+    const appointments = await Administrator.getAppointments(establishmentId);
+    const action =
+    {
+        type: types.GET_ESTABLISHMENT_APPOINTMENTS,
+        payload: [...appointments]
+    }
+    dispatch(action);
+}
+
+export const confirmEstablishment = (establishmentId, appointmentId) => async dispatch =>
+{
+    await Administrator.confirmAppointment(establishmentId, appointmentId);
+
+    const action =
+    {
+        type: types.CONFIRM_ESTABLISHMENT,
+        payload: appointmentId
+    }
+    dispatch(action);
+}

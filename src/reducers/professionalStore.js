@@ -14,8 +14,6 @@ export default (state = INITIAL_STATE, action) =>
 const getAppointments = (state, payload) => ({...state, appointments: payload});
 const confirmAppointment = (state, payload) => 
 {
-    console.log('confirming professional');
-    console.log(payload);
     const appointments = state.appointments;
     appointments.find(a => a.id === payload).status.professionalConfirmed = true;
     return {...state, appointments: [...appointments]};

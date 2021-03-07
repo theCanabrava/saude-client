@@ -4,7 +4,8 @@ const INITIAL_STATE =
 {
     establishments: {},
     procedures: [],
-    professionals: []
+    professionals: [],
+    appointments: []
 }
 
 export default (state = INITIAL_STATE, action) =>
@@ -19,6 +20,13 @@ const addProfessional = (state, payload) => ({...state, professionals:[...state.
 const removeProfessional = (state, payload) => ({...state, professionals:state.professionals.filter(p => p.id !== payload)});
 const resetEstablishment = (state, payload) => ({...state, procedures: [], professionals: []});
 const submitEstablishment = (state, payload) => ({...state, establishments:{...state.establishments, [payload.id]: payload}});
+const getAppointments = (state, payload) => ({...state, appointments: payload});
+const confirmAppointment = (state, payload) => 
+{
+    const appointments = state.appointments;
+    appointments.find(a => a.id === payload).status.establishmentConfirmed = true;
+    return {...state, appointments: [...appointments]};
+}
 
 const handlers =
 {
@@ -28,5 +36,7 @@ const handlers =
     [types.REMOVE_PROFESSIONAL]: removeProfessional,
     [types.RESET_ESTABLISHMENT]: resetEstablishment,
     [types.CREATE_ESTABLISHMENT]: submitEstablishment,
+    [types.GET_ESTABLISHMENT_APPOINTMENTS]: getAppointments,
+    [types.CONFIRM_ESTABLISHMENT]: confirmAppointment,
     hasHandler: key => handlers[key] !== undefined
 }
