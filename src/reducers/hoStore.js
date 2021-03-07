@@ -9,7 +9,6 @@ const INITIAL_STATE =
 
 export default (state = INITIAL_STATE, action) =>
 {
-    console.log(state);
     if(handlers.hasHandler(action.type)) return handlers[action.type](state, action.payload);
     else return state;
 }

@@ -2,6 +2,17 @@ import { Pacient } from '../api';
 import history from '../history';
 import types from './types';
 
+export const getPacientAppointments = () => async dispatch =>
+{
+    const appointments = await Pacient.getAppointments();
+    const action = 
+    {
+        type: types.GET_PACIENT_APPOINTMENTS,
+        payload: [...appointments]
+    }
+    dispatch(action);
+}
+
 export const getEstablishments = () => async dispatch =>
 {
     const establishments = await Pacient.getEstablishments();
@@ -27,7 +38,6 @@ export const getProcedures = (establishment) => async dispatch =>
 export const getProfessionals = (establishment, procedure) => async dispatch =>
 {
     const professionals = await Pacient.getProfessionals(establishment.id, procedure.id);
-    console.log(professionals)
     const action =
     {
         type: types.GET_PROFESSIONALS,
@@ -45,6 +55,6 @@ export const scheduleAppointment = (appointment) => async dispatch =>
         payload: createdAppointment
     }
 
-    history.push('/');
+    history.push('/agendamento');
     dispatch(action);
 }

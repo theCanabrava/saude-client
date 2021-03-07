@@ -1,12 +1,17 @@
-const { default: health } = require("./client/health")
-const { default: paths } = require("./client/paths")
+import health from './client/health';
+import paths from './client/paths';
 
 const Pacient =
 {
+    getAppointments: async () =>
+    {
+        const res = await health.get(paths.PACIENT.GET_APPOINTMENTS);
+        return res.data.appointments;
+    },
+
     getEstablishments: async () =>
     {
         const res = await health.get(paths.PACIENT.GET_ESTABLISHMENTS);
-        console.log(res);
         return res.data.establishments;
     },
 
