@@ -17,8 +17,8 @@ const HealthOrganization =
 
     generateReport: async report =>
     {
-        const res = await health.post(paths.HEALTH_ORGANIZATION.GENERATE_REPORT, report);
-        return res.data.content;
+        const res = await health.get(paths.HEALTH_ORGANIZATION.GENERATE_REPORT, {params: {...report}, responseType: 'blob'})
+        return res.data;
     }
 }
 

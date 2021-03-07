@@ -1,6 +1,7 @@
 import HealthOrganization from "../api/HealthOrganization";
 import history from "../history";
-import types from "./types"
+import types from "./types";
+import jsFileDownload from "js-file-download";
 
 export const addEstablishmentToReport = name => async dispatch =>
 {
@@ -64,8 +65,9 @@ export const generateReport = reportRequest => async dispatch =>
             procedureIds: reportRequest.procedureIds,
             range: reportRequest.range
         }
-        const content = await HealthOrganization.generateReport(report);
-        const action = { type: types.GENERATE_REPORT, payload: content };
+        const data = await HealthOrganization.generateReport(report);
+        await jsFileDownload(data, 'relatorio.pdf');
+        const action = { type: types.GENERATE_REPORT, payload: {} };
         dispatch(action);
     }
 

@@ -1,0 +1,8 @@
+div .login
+{
+    margin: 128px auto;
+    padding: 16px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    max-width: 384px;
+}
