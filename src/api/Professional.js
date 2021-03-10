@@ -13,6 +13,12 @@ const Professional =
     {
         const res = await health.put(paths.PROFESSIONAL.CONFIRM_APPOINTMENT, {appointmentId});
         return res.data;
+    },
+
+    finishAppointment: async (appointmentId) =>
+    {
+        const res = await health.put(paths.PROFESSIONAL.FINISH_APPOINTMNET, {appointmentId});
+        return res.data;
     }
 }
 

@@ -10,6 +10,7 @@ const paths =
     ADMINISTRATOR:
     {
         GET_APPOINTMENTS: '/administrator/schedules',
+        GET_ESTABLISHMENTS: '/administrator/establishments',
         CONFIRM_APPOINTMENT: '/administrator/schedule/confirm',
         GET_PROCEDURE: '/administrator/establishment/procedure',
         GET_PROFESSIONAL: '/administrator/establishment/professional',
@@ -29,6 +30,7 @@ const paths =
     {
         GET_APPOINTMENTS: '/professional/schedules',
         CONFIRM_APPOINTMENT: '/professional/schedule/confirm',
+        FINISH_APPOINTMNET: '/professional/schedule/finish'
     },
 
     HEALTH_ORGANIZATION:

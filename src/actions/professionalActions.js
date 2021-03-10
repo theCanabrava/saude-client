@@ -23,3 +23,14 @@ export const confirmProfessional = (appointmentId) => async dispatch =>
     }
     dispatch(action);
 }
+
+export const finsihAppointment = (appointmentId) => async dispatch =>
+{
+    await Professional.finishAppointment(appointmentId);
+    const action =
+    {
+        type: types.FINISH_APPOINTMENT,
+        payload: appointmentId
+    }
+    dispatch(action);
+}

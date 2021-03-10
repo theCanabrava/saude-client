@@ -20,7 +20,19 @@ const canConfirm = (appointment, permission) =>
     return false
 }
 
-const renderCell = (appointment, permission, onConfirm) =>
+const canFinish = (appointment, permission) =>
+{
+    if(permission === 'professional')
+    {
+        if(appointment.status.professionalConfirmed && appointment.status.establishmentConfirmed)
+        {
+            if(!appointment.status.complete) return true;
+        }
+    }
+    return false
+}
+
+const renderCell = (appointment, permission, onConfirm, onFinish) =>
 {
     const date = new Date(appointment.date);
     const dateString = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} - ${appointment.time}`
@@ -46,6 +58,14 @@ const renderCell = (appointment, permission, onConfirm) =>
                             Confirmar
                         </button>
                     }
+                    {canFinish(appointment, permission) && 
+                        <button 
+                            className="ui right floated primary button"
+                            onClick={() => onFinish(appointment.id)}    
+                        >
+                            Finalizar
+                        </button>
+                    }
                 </div>
             </div>
         </div>
@@ -54,9 +74,9 @@ const renderCell = (appointment, permission, onConfirm) =>
     return cell;
 }
 
-export default ({appointments, permission, onPressConfirm, onPressReSchedule}) =>
+export default ({appointments, permission, onPressConfirm, onPressReSchedule, onPressFinish}) =>
 {
-    const appointmentCells = appointments.map(a => renderCell(a, permission, onPressConfirm));
+    const appointmentCells = appointments.map(a => renderCell(a, permission, onPressConfirm, onPressFinish));
 
     const layout = 
     (

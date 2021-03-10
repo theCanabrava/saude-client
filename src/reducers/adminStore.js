@@ -2,7 +2,7 @@ import { types } from '../actions';
 
 const INITIAL_STATE =
 {
-    establishments: {},
+    establishments: [],
     procedures: [],
     professionals: [],
     appointments: []
@@ -14,12 +14,13 @@ export default (state = INITIAL_STATE, action) =>
     else return state;
 }
 
+const getEstablishments = (state, payload) => ({...state, establishments: payload});
 const addProcedure = (state, payload) => ({...state, procedures:[...state.procedures, payload]});
 const removeProcedure = (state, payload) => ({...state, procedures:state.procedures.filter(p => p.id !== payload)});
 const addProfessional = (state, payload) => ({...state, professionals:[...state.professionals, payload]});
 const removeProfessional = (state, payload) => ({...state, professionals:state.professionals.filter(p => p.id !== payload)});
 const resetEstablishment = (state, payload) => ({...state, procedures: [], professionals: []});
-const submitEstablishment = (state, payload) => ({...state, establishments:{...state.establishments, [payload.id]: payload}});
+const submitEstablishment = (state, payload) => ({...state, establishments:[...state.establishments, payload]});
 const getAppointments = (state, payload) => ({...state, appointments: payload});
 const confirmAppointment = (state, payload) => 
 {
@@ -30,6 +31,7 @@ const confirmAppointment = (state, payload) =>
 
 const handlers =
 {
+    [types.GET_ADMIN_ESTABLISHMENTS]: getEstablishments,
     [types.ADD_PROCEDURE]: addProcedure,
     [types.REMOVE_PROCEDURE]: removeProcedure,
     [types.ADD_PROFESSIONAL]: addProfessional,

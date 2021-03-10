@@ -2,6 +2,17 @@ import { Administrator } from '../api';
 import history from '../history';
 import types from './types';
 
+export const getAdminEstablishments = () => async dispatch =>
+{
+    const establishments = await Administrator.getEstablishments();
+    const action = 
+    {
+        type: types.GET_ADMIN_ESTABLISHMENTS,
+        payload: [...establishments]
+    }
+    dispatch(action);
+}
+
 export const addProcedure = (name) => async dispatch =>
 {
     const procedure = await Administrator.getProcedure(name);

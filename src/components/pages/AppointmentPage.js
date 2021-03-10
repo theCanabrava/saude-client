@@ -3,23 +3,33 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import AppointmentLayout from './layouts/AppointmentLayout';
-import { getPacientAppointments, getProfessionalAppointments, getEstablishmentAppointments, confirmProfessional, confirmEstablishment } from '../../actions';
+import { getPacientAppointments, getProfessionalAppointments, getEstablishmentAppointments, confirmProfessional, confirmEstablishment, finsihAppointment } from '../../actions';
 
-const ScheduleAppointmentPage = ({appointments, permission, getPacientAppointments, getProfessionalAppointments, confirmProfessional, getEstablishmentAppointments, confirmEstablishment}) => 
+const AppointmentPage = (
+    {
+        appointments, 
+        permission, 
+        getPacientAppointments, 
+        getProfessionalAppointments, 
+        confirmProfessional, 
+        getEstablishmentAppointments, 
+        confirmEstablishment,
+        finsihAppointment
+}) => 
 {
-    const { id } = useParams();
-
+    const { establishmentId } = useParams();
+    
     useEffect(() =>
     {
         if(permission === 'pacient') getPacientAppointments();
         else if(permission === 'professional') getProfessionalAppointments();
-        else if(permission === 'administrator') getEstablishmentAppointments('602bea95257b5517a30e36cf');
+        else if(permission === 'administrator') getEstablishmentAppointments(establishmentId);
     }, []);
 
     const confirmAppointment = (id) =>
     {
         if(permission === 'professional') confirmProfessional(id)
-        else if(permission === 'administrator') confirmEstablishment('602bea95257b5517a30e36cf', id);
+        else if(permission === 'administrator') confirmEstablishment(establishmentId, id);
     }
 
     const page =
@@ -27,6 +37,7 @@ const ScheduleAppointmentPage = ({appointments, permission, getPacientAppointmen
         <AppointmentLayout 
             appointments={appointments}
             onPressConfirm={(id) => confirmAppointment(id)}
+            onPressFinish={(id) => finsihAppointment(id)}
             onPressReSchedule={() => console.log('Should reschedule appointment')}
             permission={permission}
         />
@@ -41,7 +52,8 @@ const action =
     getProfessionalAppointments,
     getEstablishmentAppointments,
     confirmProfessional,
-    confirmEstablishment
+    confirmEstablishment,
+    finsihAppointment
 }
 
 const mapStateToProps = ({auth, pacient, professional, admin}) => 
@@ -58,4 +70,4 @@ const mapStateToProps = ({auth, pacient, professional, admin}) =>
     }
     return props;
 }
-export default connect(mapStateToProps, action)(ScheduleAppointmentPage);
+export default connect(mapStateToProps, action)(AppointmentPage);

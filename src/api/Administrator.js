@@ -3,6 +3,12 @@ import paths from './client/paths';
 
 const Administrator =
 {
+    getEstablishments: async () =>
+    {
+        const res = await health.get(paths.ADMINISTRATOR.GET_ESTABLISHMENTS);
+        return res.data.establishments;
+    },
+
     getProcedure: async name =>
     {
         const res = await health.get(paths.ADMINISTRATOR.GET_PROCEDURE, {params: {name}});
