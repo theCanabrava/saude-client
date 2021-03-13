@@ -1,6 +1,6 @@
 const paths =
 {
-    ROOT: 'http://localhost:8000',
+    ROOT: 'https://servico-saude.herokuapp.com/',
 
     AUTH:
     {
