@@ -73,7 +73,7 @@ const renderCell = (appointment, permission, onConfirm, onFinish) =>
                                 }
                             }
                         }}
-                        className="ui button primary"
+                        className="ui right floated button primary"
                         >
                             Re-agendar
                         </Link>
