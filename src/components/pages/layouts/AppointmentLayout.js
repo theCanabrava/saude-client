@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
+const unselectedDefault =
+{
+    establishment: {id: '-1', name: 'Estabelecimento'},
+    procedure: {id: '-1', name: 'Procedimento'},
+    professional: {id: '-1', name: 'Profissional'}
+}
 
 const renderStatus = (appointment) =>
 {
@@ -50,7 +57,27 @@ const renderCell = (appointment, permission, onConfirm, onFinish) =>
                     <p>{dateString}</p>
                 </div>
                 <div className="extra">
-                    {permission === 'pacient' && <button className="ui right floated primary button">Re-Agendar</button>}
+                    {permission === 'pacient' &&
+                    
+                        <Link 
+                        to=
+                        {{
+                            pathname: 'agendamento/marcar', 
+                            state: 
+                            {
+                                defaults: 
+                                {
+                                    establishment: appointment.establishment, 
+                                    procedure: appointment.procedure, 
+                                    professional: appointment.professional
+                                }
+                            }
+                        }}
+                        className="ui button primary"
+                        >
+                            Re-agendar
+                        </Link>
+                    }
                     {canConfirm(appointment, permission) && 
                         <button 
                             className="ui right floated primary button"
@@ -84,7 +111,15 @@ export default ({appointments, permission, onPressConfirm, onPressReSchedule, on
         <div className="ui items">
             {appointmentCells}
             <div className="ui divider"/>
-            {permission === 'pacient' && <Link to='/agendamento/marcar' className="ui button primary">Marcar Consulta</Link>}
+            {
+                permission === 'pacient' && 
+                <Link 
+                    to={{pathname: 'agendamento/marcar', state: {defaults: unselectedDefault}}}
+                    className="ui button primary"
+                >
+                    Marcar Consulta
+                </Link>
+            }
         </div>
     )
 

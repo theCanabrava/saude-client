@@ -10,7 +10,7 @@ import {
     scheduleAppointment
 } from '../../actions';
 
-const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProcedures, getProfessionals, getAvailability, scheduleAppointment}) => 
+const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProcedures, getProfessionals, getAvailability, scheduleAppointment, location}) => 
 {
     useEffect(() =>
     {
@@ -20,6 +20,7 @@ const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProce
     const page =
     (
         <ScheduleAppointmentLayout 
+            defaults={location.state.defaults}
             establishments={appointmentEditor.establishments} 
             procedures={appointmentEditor.procedures} 
             professionals={appointmentEditor.professionals}

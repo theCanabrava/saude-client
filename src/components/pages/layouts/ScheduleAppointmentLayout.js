@@ -3,11 +3,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Dropdown from './reusables/Dropdown';
 
-export default ({onSubmitAppointment, establishments, procedures, professionals, availability, updateProcedures, updateProfessionals, updateAvailability}) =>
+export default ({defaults, onSubmitAppointment, establishments, procedures, professionals, availability, updateProcedures, updateProfessionals, updateAvailability}) =>
 {
-    const [establishment, setEstablishment] = useState({id: '-1', name: 'Estabelecimento'});
-    const [procedure, setProcedure] = useState({id: '-1', name: 'Procedimento'});
-    const [professional, setProfessional] = useState({id: '-1', name: 'Profissional', availability:{startTime: '00:00', endTime: '00:00'}});
+    const [establishment, setEstablishment] = useState(defaults.establishment);
+    const [procedure, setProcedure] = useState(defaults.procedure);
+    const [professional, setProfessional] = useState(defaults.professional);
     const [hour, setHour] = useState({id: '-1', name: 'Horário'});
     const availableHours = availability.map(a => ({id: a, name: a}))
     const [date, setDate] = useState(new Date());
