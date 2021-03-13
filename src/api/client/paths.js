@@ -23,6 +23,7 @@ const paths =
         GET_ESTABLISHMENTS: '/pacient/schedule/establishments',
         GET_PROCEDURES: '/pacient/schedule/procedures',
         GET_PROFESSIONALS: '/pacient/schedule/professionals',
+        GET_AVAILABILITY: '/pacient/schedule/availability',
         SCHEDULE_APPOINTMENT: '/pacient/schedule/create'
     },
 

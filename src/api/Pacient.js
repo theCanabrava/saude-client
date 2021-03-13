@@ -27,6 +27,12 @@ const Pacient =
         return res.data.professionals;
     },
 
+    getAvailability: async (professionalId, date) =>
+    {
+        const res = await health.get(paths.PACIENT.GET_AVAILABILITY, {params: {professionalId, date}});
+        return res.data.availability;
+    },
+
     scheduleAppointment: async appointment =>
     {
         const res = await health.post(paths.PACIENT.SCHEDULE_APPOINTMENT, appointment);

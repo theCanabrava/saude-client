@@ -3,13 +3,13 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Dropdown from './reusables/Dropdown';
 
-export default ({onSubmitAppointment, establishments, procedures, professionals, updateProcedures, updateProfessionals}) =>
+export default ({onSubmitAppointment, establishments, procedures, professionals, availability, updateProcedures, updateProfessionals, updateAvailability}) =>
 {
     const [establishment, setEstablishment] = useState({id: '-1', name: 'Estabelecimento'});
     const [procedure, setProcedure] = useState({id: '-1', name: 'Procedimento'});
     const [professional, setProfessional] = useState({id: '-1', name: 'Profissional', availability:{startTime: '00:00', endTime: '00:00'}});
     const [hour, setHour] = useState({id: '-1', name: 'Horário'});
-    const [availableHours, setAvailableHours] = useState([]);
+    const availableHours = availability.map(a => ({id: a, name: a}))
     const [date, setDate] = useState(new Date());
 
     const onSelectedEstablishment = establishment =>
@@ -27,16 +27,12 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
     const onSelectedProfessional = professional =>
     {
         setProfessional(professional);
-        const times = [{id: professional.availability.startTime, name:professional.availability.startTime}];
-        while(times[times.length-1].name < professional.availability.endTime)
-        {
-            let [hour, minute] = times[times.length-1].name.split(':');
-            if(minute === '00') minute = '30';
-            else hour = String(Number(hour) + 1).padStart(2, '0');
-            const time = `${hour}:${minute}`;
-            if(time !== professional.availability.endTime) times.push({id: time, name:time});
-        }
-        setAvailableHours(times);
+    }
+
+    const onSelectedDate = date =>
+    {
+        setDate(date);
+        updateAvailability(professional.id, date);
     }
 
     const submitForm = (e) =>
@@ -55,6 +51,7 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
 
     const tileDisabled = (ev) =>
     {
+        if(professional.id === '-1') return true;
         if (ev.view === 'month') {
             return new Date() >= ev.date;
         }
@@ -84,19 +81,19 @@ export default ({onSubmitAppointment, establishments, procedures, professionals,
                     selectionHook={[professional, onSelectedProfessional]}
                 />
             </div>
+            <div className="field left floated">
+                <label>Data</label>
+                <Calendar
+                    value={date}
+                    onChange={onSelectedDate}
+                    tileDisabled={tileDisabled}
+                />
+            </div>
             <div className="field">
                 <label>Horário</label>
                 <Dropdown
                     options={availableHours}
                     selectionHook={[hour, setHour]}
-                />
-            </div>
-            <div className="field left floated">
-                <label>Data</label>
-                <Calendar
-                    value={date}
-                    onChange={setDate}
-                    tileDisabled={tileDisabled}
                 />
             </div>
             <button className="ui button primary" type="submit" onClick={submitForm}>Agendar</button>

@@ -46,6 +46,17 @@ export const getProfessionals = (establishment, procedure) => async dispatch =>
     dispatch(action);
 }
 
+export const getAvailability = (professionalId, date) => async dispatch =>
+{
+    const availability = await Pacient.getAvailability(professionalId, date);
+    const action =
+    {
+        type: types.GET_AVAILABILITY,
+        payload: [...availability]
+    }
+    dispatch(action);
+}
+
 export const scheduleAppointment = (appointment) => async dispatch =>
 {
     const createdAppointment = await Pacient.scheduleAppointment(appointment);

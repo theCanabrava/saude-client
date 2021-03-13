@@ -6,10 +6,11 @@ import {
     getEstablishments, 
     getProcedures, 
     getProfessionals, 
-    scheduleAppointment 
+    getAvailability,
+    scheduleAppointment
 } from '../../actions';
 
-const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProcedures, getProfessionals, scheduleAppointment}) => 
+const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProcedures, getProfessionals, getAvailability, scheduleAppointment}) => 
 {
     useEffect(() =>
     {
@@ -22,8 +23,10 @@ const ScheduleAppointmentPage = ({appointmentEditor, getEstablishments, getProce
             establishments={appointmentEditor.establishments} 
             procedures={appointmentEditor.procedures} 
             professionals={appointmentEditor.professionals}
+            availability={appointmentEditor.availability}
             updateProcedures={getProcedures}
             updateProfessionals={getProfessionals}
+            updateAvailability={getAvailability}
             onSubmitAppointment={scheduleAppointment}
         />
     )
@@ -36,7 +39,8 @@ const action =
     getEstablishments, 
     getProcedures, 
     getProfessionals, 
-    scheduleAppointment 
+    scheduleAppointment ,
+    getAvailability
 }
 const mapStateToProps = ({pacient}) => ({appointmentEditor: pacient.appointmentEditor});
 export default connect(mapStateToProps, action)(ScheduleAppointmentPage);

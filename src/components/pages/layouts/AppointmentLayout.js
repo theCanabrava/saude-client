@@ -45,6 +45,7 @@ const renderCell = (appointment, permission, onConfirm, onFinish) =>
                     <p><strong>Paciente:</strong> {appointment.pacient.name}</p>
                     <p><strong>Profissionals:</strong> {appointment.professional.name}</p>
                     <p><strong>Estabelecimento:</strong> {appointment.establishment.name} - {appointment.establishment.address}</p>
+                    <p><strong>Procedimento:</strong> {appointment.procedure.name} - {appointment.procedure.type}</p>
                     <p><strong>Status:</strong> {renderStatus(appointment)}</p>
                     <p>{dateString}</p>
                 </div>
