@@ -38,7 +38,6 @@ const AppointmentPage = (
             appointments={appointments}
             onPressConfirm={(id) => confirmAppointment(id)}
             onPressFinish={(id) => finsihAppointment(id)}
-            onPressReSchedule={() => console.log('Should reschedule appointment')}
             permission={permission}
         />
     )

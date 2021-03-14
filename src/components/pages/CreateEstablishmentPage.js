@@ -8,8 +8,17 @@ import {
     addProfessional, 
     removeProfessional, 
     resetEstablishment, 
-    createEstablishment 
+    getEstablishment,
+    createEstablishment,
+    editEstablishment
 } from '../../actions';
+
+const emptyDefaults =
+{
+    name: '',
+    address: '',
+    type: {id: '-1', name: 'Tipo'}
+}
 
 const CreateEstablishmentPage = 
 ({
@@ -20,17 +29,31 @@ const CreateEstablishmentPage =
     addProfessional, 
     removeProfessional, 
     resetEstablishment, 
-    createEstablishment
+    getEstablishment,
+    createEstablishment,
+    editEstablishment,
+    location
 }) => 
 {
     useEffect(() =>
     {
-        resetEstablishment();
+        if(location.state) getEstablishment(location.state.establishment.id);
+        else resetEstablishment();
     }, []);
 
     const page =
     (
         <CreateEstablishmentLayout
+            defaults=
+            {
+                location.state ?
+                {
+                    name: location.state.establishment.name,
+                    address: location.state.establishment.address,
+                    type: {id: '-1', name: location.state.establishment.type},
+                    establishmentId: location.state.establishment.id
+                } : emptyDefaults
+            }
             procedures={procedures}
             professionals={professionals}
             onAddProcedure={addProcedure}
@@ -38,6 +61,7 @@ const CreateEstablishmentPage =
             onAddProfessional={addProfessional}
             onRemoveProfessional={removeProfessional}
             onSubmitEstabilthment={createEstablishment}
+            onEditEstablishment={editEstablishment}
         />
     )
 
@@ -51,7 +75,9 @@ const actions =
     addProfessional, 
     removeProfessional, 
     resetEstablishment, 
-    createEstablishment 
+    getEstablishment,
+    createEstablishment,
+    editEstablishment
 };
 const mapStateToProps = ({admin}) => ({procedures: admin.procedures, professionals: admin.professionals});
 export default connect(mapStateToProps, actions)(CreateEstablishmentPage);

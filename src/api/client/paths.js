@@ -1,6 +1,7 @@
 const paths =
 {
     ROOT: 'https://servico-saude.herokuapp.com/',
+    //ROOT: 'http://localhost:8000',
 
     AUTH:
     {
@@ -11,10 +12,12 @@ const paths =
     {
         GET_APPOINTMENTS: '/administrator/schedules',
         GET_ESTABLISHMENTS: '/administrator/establishments',
+        GET_ESTABLISHMENT: '/administrator/establishment',
         CONFIRM_APPOINTMENT: '/administrator/schedule/confirm',
         GET_PROCEDURE: '/administrator/establishment/procedure',
         GET_PROFESSIONAL: '/administrator/establishment/professional',
         CREATE_ESTABLISHMENT: '/administrator/establishment/create',
+        EDIT_ESTABLISHMENT: '/administrator/establishment/edit',
     },
 
     PACIENT:

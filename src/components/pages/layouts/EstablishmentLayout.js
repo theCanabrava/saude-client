@@ -14,6 +14,16 @@ const renderCell = (establishment) =>
                 </div>
                 <div className="extra">
                     <Link 
+                        to=
+                        {{
+                            pathname: 'estabelecimento/criar', 
+                            state: {establishment}    
+                        }}
+                        className="ui right floated button primary"
+                    >
+                        Editar
+                    </Link>
+                    <Link 
                         className="ui right floated primary button"
                         to={`/agendamento/${establishment.id}`}
                     >

@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import CumulativePicker from './reusables/CumulativePicker';
 import Dropdown from './reusables/Dropdown';
 
-export default ({onSubmitEstabilthment, onAddProcedure, onRemoveProcedure, onAddProfessional, onRemoveProfessional, procedures, professionals}) =>
+export default ({
+    defaults, 
+    onSubmitEstabilthment, 
+    onEditEstablishment, 
+    onAddProcedure, 
+    onRemoveProcedure, 
+    onAddProfessional, 
+    onRemoveProfessional, 
+    procedures, 
+    professionals
+}) =>
 {
-    const [name, setName] = useState('');
-    const [address, setAddress] = useState('');
-    const [type, setType] = useState({id: '-1', name: 'Tipo'});
+    const [name, setName] = useState(defaults.name);
+    const [address, setAddress] = useState(defaults.address);
+    const [type, setType] = useState(defaults.type);
 
     const makeIdList = array =>
     {
@@ -20,15 +30,31 @@ export default ({onSubmitEstabilthment, onAddProcedure, onRemoveProcedure, onAdd
         e.preventDefault();
         const procedureIds = makeIdList(procedures)
         const professionalIds = makeIdList(professionals);
-        onSubmitEstabilthment(
-            {
-                name,
-                address,
-                type: type.name,
-                procedureIds,
-                professionalIds
-            }
-        )
+        if(defaults.establishmentId)
+        {
+            onEditEstablishment(
+                {
+                    establishmentId: defaults.establishmentId,
+                    name,
+                    address,
+                    type: type.name,
+                    procedureIds,
+                    professionalIds
+                }
+            )
+        }
+        else
+        {
+            onSubmitEstabilthment(
+                {
+                    name,
+                    address,
+                    type: type.name,
+                    procedureIds,
+                    professionalIds
+                }
+            )
+        }
     }
 
     const layout = 
@@ -86,7 +112,7 @@ export default ({onSubmitEstabilthment, onAddProcedure, onRemoveProcedure, onAdd
                     removeElement={procedure => onRemoveProfessional(procedure.id)}
                 />
             </div>
-            <button className="ui button primary" type="submit" onClick={submitForm}>Criar</button>
+            <button className="ui button primary" type="submit" onClick={submitForm}>{defaults.establishmentId ? 'Editar':'Criar'}</button>
         </form>
     )
 

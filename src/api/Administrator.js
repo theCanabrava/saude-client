@@ -21,9 +21,21 @@ const Administrator =
         return res.data.professional;
     },
 
+    getEstablishment: async establishmentId =>
+    {
+        const res = await health.get(`${paths.ADMINISTRATOR.GET_ESTABLISHMENTS}/${establishmentId}`);
+        return res.data.establishment;
+    },
+
     createEstablishment: async establishment =>
     {
         const res = await health.post(paths.ADMINISTRATOR.CREATE_ESTABLISHMENT, establishment);
+        return res.data.establishment;
+    },
+
+    editEstablishment: async establishment =>
+    {
+        const res = await health.put(paths.ADMINISTRATOR.EDIT_ESTABLISHMENT, establishment);
         return res.data.establishment;
     },
 

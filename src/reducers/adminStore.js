@@ -28,6 +28,7 @@ const confirmAppointment = (state, payload) =>
     appointments.find(a => a.id === payload).status.establishmentConfirmed = true;
     return {...state, appointments: [...appointments]};
 }
+const loadEstablishment = (state, payload) => ({...state, procedures: payload.procedures, professionals: payload.professionals})
 
 const handlers =
 {
@@ -40,5 +41,6 @@ const handlers =
     [types.CREATE_ESTABLISHMENT]: submitEstablishment,
     [types.GET_ESTABLISHMENT_APPOINTMENTS]: getAppointments,
     [types.CONFIRM_ESTABLISHMENT]: confirmAppointment,
+    [types.LOAD_ESTABLISHMENT]: loadEstablishment,
     hasHandler: key => handlers[key] !== undefined
 }

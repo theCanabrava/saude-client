@@ -73,6 +73,22 @@ export const resetEstablishment = () =>
     return action;
 }
 
+export const getEstablishment = (establishmentId) => async dispatch =>
+{
+    const establishment = await Administrator.getEstablishment(establishmentId);
+    const action = 
+    {
+        type: types.LOAD_ESTABLISHMENT,
+        payload: 
+        {
+            establishment,
+            professionals: establishment.professionals,
+            procedures: establishment.procedures
+        }
+    }
+    dispatch(action)
+}
+
 export const createEstablishment = (establishment) => async dispatch =>
 {
     const establishmentData = await Administrator.createEstablishment(establishment);
@@ -85,6 +101,13 @@ export const createEstablishment = (establishment) => async dispatch =>
     history.push('/');
     dispatch(action);
 } 
+
+export const editEstablishment = (establishment) => async dispatch =>
+{
+    await Administrator.editEstablishment(establishment);
+    history.push('/');
+} 
+
 
 export const getEstablishmentAppointments = (establishmentId) => async dispatch =>
 {

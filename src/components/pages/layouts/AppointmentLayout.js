@@ -60,20 +60,20 @@ const renderCell = (appointment, permission, onConfirm, onFinish) =>
                     {permission === 'pacient' &&
                     
                         <Link 
-                        to=
-                        {{
-                            pathname: 'agendamento/marcar', 
-                            state: 
-                            {
-                                defaults: 
+                            to=
+                            {{
+                                pathname: 'agendamento/marcar', 
+                                state: 
                                 {
-                                    establishment: appointment.establishment, 
-                                    procedure: appointment.procedure, 
-                                    professional: appointment.professional
+                                    defaults: 
+                                    {
+                                        establishment: appointment.establishment, 
+                                        procedure: appointment.procedure, 
+                                        professional: appointment.professional
+                                    }
                                 }
-                            }
-                        }}
-                        className="ui right floated button primary"
+                            }}
+                            className="ui right floated button primary"
                         >
                             Re-agendar
                         </Link>
@@ -102,7 +102,7 @@ const renderCell = (appointment, permission, onConfirm, onFinish) =>
     return cell;
 }
 
-export default ({appointments, permission, onPressConfirm, onPressReSchedule, onPressFinish}) =>
+export default ({appointments, permission, onPressConfirm, onPressFinish}) =>
 {
     const appointmentCells = appointments.map(a => renderCell(a, permission, onPressConfirm, onPressFinish));
 
