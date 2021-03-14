@@ -55,6 +55,38 @@ export const removeProcedureFromReport = id =>
     return action;
 }
 
+export const checkReport = reportRequest => async dispatch =>
+{
+    try
+    {
+        for(const establishmentId of reportRequest.establishmentIds)
+        {
+            const report =
+            {
+                establishmentId,
+                procedureIds: reportRequest.procedureIds,
+                range: reportRequest.range
+            }
+            await HealthOrganization.checkReport(report);
+            const action = 
+            { 
+                type: types.SET_REPORT_ERROR, 
+                payload: undefined 
+            };
+            dispatch(action);
+        }
+    }
+    catch
+    {
+        const action = 
+        { 
+            type: types.SET_REPORT_ERROR, 
+            payload: 'Periodo selecionado não possui consultas ou exames' 
+        };
+        dispatch(action);
+    }
+}
+
 export const generateReport = reportRequest => async dispatch =>
 {
     for(const establishmentId of reportRequest.establishmentIds)

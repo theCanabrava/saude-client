@@ -3,7 +3,18 @@ import Calendar from 'react-calendar';
 
 import ComulativePicker from './reusables/CumulativePicker';
 
-export default ({establishments, procedures, onGenerateReport, onAddEstablishment, onRemoveEstablishment, onAddProcedure, onRemoveProcedure}) =>
+export default 
+({
+    establishments, 
+    procedures, 
+    onGenerateReport, 
+    onAddEstablishment, 
+    onRemoveEstablishment, 
+    onAddProcedure, 
+    onRemoveProcedure,
+    onSetDateRange,
+    error
+}) =>
 {
     const [filterProcedures, setFilterProcedures] = useState(false);
     const [range, setRange] = useState([new Date(), new Date()]);
@@ -13,6 +24,20 @@ export default ({establishments, procedures, onGenerateReport, onAddEstablishmen
         const ids = [];
         for(let obj of array) ids.push(obj.id);
         return ids;
+    }
+
+    const onDateChanged = r =>
+    {
+        setRange(r);
+        const establishmentIds = makeIdList(establishments);
+        const procedureIds = makeIdList(procedures);
+        onSetDateRange(
+            {
+                establishmentIds,
+                procedureIds,
+                range: r
+            }
+        )
     }
 
     const submitForm = (e) =>
@@ -68,9 +93,10 @@ export default ({establishments, procedures, onGenerateReport, onAddEstablishmen
                 <label>Data</label>
                 <Calendar
                     value={range}
-                    onChange={setRange}
+                    onChange={onDateChanged}
                     selectRange
                 />
+                { error && <div className="ui pointing red basic label">{error}</div> }
             </div>
             <button className="ui button primary" type="submit" onClick={submitForm}>Gerar Relatório</button>
         </form>

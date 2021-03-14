@@ -15,6 +15,12 @@ const HealthOrganization =
         return res.data.procedure;
     },
 
+    checkReport: async report =>
+    {
+        const res = await health.get(paths.HEALTH_ORGANIZATION.CHECK_REPORT, {params: {...report}, responseType: 'blob'})
+        return res.data;
+    },
+
     generateReport: async report =>
     {
         const res = await health.get(paths.HEALTH_ORGANIZATION.GENERATE_REPORT, {params: {...report}, responseType: 'blob'})

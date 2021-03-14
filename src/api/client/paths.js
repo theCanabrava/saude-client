@@ -41,6 +41,7 @@ const paths =
     {
         GET_ESTABLISHMENT: '/health-organization/report/establishment',
         GET_PROCEDURE: '/health-organization/report/procedure',
+        CHECK_REPORT: '/health-organization/report/check',
         GENERATE_REPORT: '/health-organization/report/generate'
     }
 }

@@ -7,6 +7,7 @@ import {
     removeEstablishmentFromReport, 
     addProcedureToReport, 
     removeProcedureFromReport, 
+    checkReport,
     generateReport
 } from '../../actions';
 
@@ -18,7 +19,9 @@ const GenerateReportPage =
     removeEstablishmentFromReport, 
     addProcedureToReport, 
     removeProcedureFromReport, 
-    generateReport
+    checkReport,
+    generateReport,
+    error
 }) =>
 (
     <GenerateReportLayout
@@ -28,7 +31,9 @@ const GenerateReportPage =
         onRemoveEstablishment={removeEstablishmentFromReport}
         onAddProcedure={addProcedureToReport}
         onRemoveProcedure={removeProcedureFromReport}
+        onSetDateRange={checkReport}
         onGenerateReport={generateReport}
+        error={error}
     />
 )
 
@@ -38,11 +43,13 @@ const actions =
     removeEstablishmentFromReport, 
     addProcedureToReport, 
     removeProcedureFromReport, 
+    checkReport,
     generateReport
 }
 const mapStateToProps = ({healthOrganization}) => 
 ({
     establishments: healthOrganization.establishments, 
-    procedures: healthOrganization.procedures
+    procedures: healthOrganization.procedures,
+    error: healthOrganization.error
 })
 export default connect(mapStateToProps, actions)(GenerateReportPage);

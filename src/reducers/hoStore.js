@@ -4,7 +4,8 @@ const INITIAL_STATE =
 {
     reports: [],
     establishments: [],
-    procedures: []
+    procedures: [],
+    error: undefined
 }
 
 export default (state = INITIAL_STATE, action) =>
@@ -18,6 +19,7 @@ const removeEstablishment = (state, payload) => ({...state, establishments:[stat
 const addProcedure = (state, payload) => ({...state, procedures:[...state.procedures, payload]});
 const removeProcedure = (state, payload) => ({...state, procedures:[state.procedures.filter(p => p.id !== payload)]});
 const generateReport = (state, payload) => ({reports:[...state.reports, payload], establishments: [], procedures: []});
+const setError = (state, payload) => ({...state, error: payload})
 
 const handlers =
 {
@@ -26,5 +28,6 @@ const handlers =
     [types.ADD_PROCEDURE_TO_REPORT]: addProcedure,
     [types.REMOVE_PROCEDURE_FROM_REPORT]: removeProcedure,
     [types.GENERATE_REPORT]: generateReport,
+    [types.SET_REPORT_ERROR]: setError,
     hasHandler: key => handlers[key] !== undefined
 }
