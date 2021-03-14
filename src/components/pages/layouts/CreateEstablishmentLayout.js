@@ -11,7 +11,8 @@ export default ({
     onAddProfessional, 
     onRemoveProfessional, 
     procedures, 
-    professionals
+    professionals,
+    error
 }) =>
 {
     const [name, setName] = useState(defaults.name);
@@ -70,7 +71,7 @@ export default ({
                     onChange={e => setName(e.target.value)}
                 />
             </div>
-            <div className="field">
+            <div className={`field ${error ? 'error': ''}`}>
                 <label>Endereço</label>
                 <input 
                     type="text" 
@@ -79,6 +80,7 @@ export default ({
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                 />
+                { error && <div className="ui pointing red basic label">{error}</div> }
             </div>
             <div className="field">
                 <label>Tipo</label>

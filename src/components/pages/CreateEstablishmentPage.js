@@ -24,6 +24,7 @@ const CreateEstablishmentPage =
 ({
     procedures, 
     professionals, 
+    error,
     addProcedure, 
     removeProcedure, 
     addProfessional, 
@@ -56,6 +57,7 @@ const CreateEstablishmentPage =
             }
             procedures={procedures}
             professionals={professionals}
+            error={error}
             onAddProcedure={addProcedure}
             onRemoveProcedure={removeProcedure}
             onAddProfessional={addProfessional}
@@ -79,5 +81,5 @@ const actions =
     createEstablishment,
     editEstablishment
 };
-const mapStateToProps = ({admin}) => ({procedures: admin.procedures, professionals: admin.professionals});
+const mapStateToProps = ({admin}) => ({procedures: admin.procedures, professionals: admin.professionals, error: admin.error});
 export default connect(mapStateToProps, actions)(CreateEstablishmentPage);

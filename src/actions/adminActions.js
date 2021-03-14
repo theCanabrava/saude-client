@@ -91,21 +91,45 @@ export const getEstablishment = (establishmentId) => async dispatch =>
 
 export const createEstablishment = (establishment) => async dispatch =>
 {
-    const establishmentData = await Administrator.createEstablishment(establishment);
-    const action =
+    try
     {
-        type: types.CREATE_ESTABLISHMENT,
-        payload: { ...establishmentData }
-    }
+        const establishmentData = await Administrator.createEstablishment(establishment);
+        const action =
+        {
+            type: types.CREATE_ESTABLISHMENT,
+            payload: { ...establishmentData }
+        }
 
-    history.push('/');
-    dispatch(action);
+        history.push('/');
+        dispatch(action);
+    }
+    catch
+    {
+        const action =
+        {
+            type: types.SET_ESTABLISHMENT_ERROR,
+            payload: 'O endereço informado já está sendo utilizado.'
+        }
+        dispatch(action)
+    }
 } 
 
 export const editEstablishment = (establishment) => async dispatch =>
 {
-    await Administrator.editEstablishment(establishment);
-    history.push('/');
+    try
+    {
+        await Administrator.editEstablishment(establishment);
+        history.push('/');
+    }
+    catch
+    {
+        const action =
+        {
+            type: types.SET_ESTABLISHMENT_ERROR,
+            payload: 'O endereço informado já está sendo utilizado.'
+        }
+        dispatch(action)
+    }
 } 
 
 
