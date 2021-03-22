@@ -1,7 +1,7 @@
 # Diagramas
 
 ## Diagrama de componentes
-![alt componentes](Cliente.png)
+![alt componentes](Client.png)
 
 ## Diagrama de integração
 ![alt integração](Integration.svg)
