@@ -19,6 +19,8 @@ export default
     const [filterProcedures, setFilterProcedures] = useState(false);
     const [range, setRange] = useState([new Date(), new Date()]);
 
+    const enabled = establishments.length !== 0;
+
     const makeIdList = array =>
     {
         const ids = [];
@@ -98,7 +100,13 @@ export default
                 />
                 { error && <div className="ui pointing red basic label">{error}</div> }
             </div>
-            <button className="ui button primary" type="submit" onClick={submitForm}>Gerar Relatório</button>
+            <button 
+                className={`ui button primary ${enabled ? '' : 'disabled'}`}
+                type="submit" 
+                onClick={submitForm}
+            >
+                Gerar Relatório
+            </button>
         </form>
     )
 

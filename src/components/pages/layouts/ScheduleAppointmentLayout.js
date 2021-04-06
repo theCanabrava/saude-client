@@ -12,6 +12,8 @@ export default ({defaults, onSubmitAppointment, establishments, procedures, prof
     const availableHours = availability.map(a => ({id: a, name: a}))
     const [date, setDate] = useState(new Date());
 
+    const enabled = hour.id !== '-1';
+
     const onSelectedEstablishment = establishment =>
     {
         setEstablishment(establishment);
@@ -96,7 +98,13 @@ export default ({defaults, onSubmitAppointment, establishments, procedures, prof
                     selectionHook={[hour, setHour]}
                 />
             </div>
-            <button className="ui button primary" type="submit" onClick={submitForm}>Agendar</button>
+            <button 
+                className={`ui button primary ${enabled ? '' : 'disabled'}`}
+                type="submit"
+                onClick={submitForm}
+            >
+                Agendar
+            </button>
         </form>
     )
 

@@ -19,6 +19,8 @@ export default ({
     const [address, setAddress] = useState(defaults.address);
     const [type, setType] = useState(defaults.type);
 
+    const enabled = (name !== '') && (address !== '') && (type.id !== '-1');
+
     const makeIdList = array =>
     {
         const ids = [];
@@ -114,7 +116,13 @@ export default ({
                     removeElement={procedure => onRemoveProfessional(procedure.id)}
                 />
             </div>
-            <button className="ui button primary" type="submit" onClick={submitForm}>{defaults.establishmentId ? 'Editar':'Criar'}</button>
+            <button 
+                className={`ui button primary ${enabled ? '' : 'disabled'}`}
+                type="submit" 
+                onClick={submitForm}
+            >
+                {defaults.establishmentId ? 'Editar':'Criar'}
+            </button>
         </form>
     )
 
