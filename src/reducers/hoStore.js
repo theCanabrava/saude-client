@@ -15,9 +15,9 @@ export default (state = INITIAL_STATE, action) =>
 }
 
 const addEstablishment = (state, payload) => ({...state, establishments:[...state.establishments, payload]});
-const removeEstablishment = (state, payload) => ({...state, establishments:[state.establishments.filter(e => e.id !== payload)]});
+const removeEstablishment = (state, payload) => ({...state, establishments: [...state.establishments.filter(e => e.id !== payload)]});
 const addProcedure = (state, payload) => ({...state, procedures:[...state.procedures, payload]});
-const removeProcedure = (state, payload) => ({...state, procedures:[state.procedures.filter(p => p.id !== payload)]});
+const removeProcedure = (state, payload) => ({...state, procedures:[...state.procedures.filter(p => p.id !== payload)]});
 const generateReport = (state, payload) => ({reports:[...state.reports, payload], establishments: [], procedures: []});
 const setError = (state, payload) => ({...state, error: payload})
 

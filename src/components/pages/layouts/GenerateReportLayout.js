@@ -65,7 +65,7 @@ export default
                     placeholder={'estabelecimento'}
                     selected={establishments}
                     addElement={term => onAddEstablishment(term)}
-                    removeElement={establishment => onRemoveEstablishment(establishment)}
+                    removeElement={establishment => onRemoveEstablishment(establishment.id)}
                 />
             </div>
             <div className="field">
@@ -87,7 +87,7 @@ export default
                         placeholder={'procedimento'}
                         selected={procedures}
                         addElement={term => onAddProcedure(term)}
-                        removeElement={procedure => onRemoveProcedure(procedure)}
+                        removeElement={procedure => onRemoveProcedure(procedure.id)}
                     />
                 </div>                
             }
