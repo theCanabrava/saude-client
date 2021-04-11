@@ -18,17 +18,23 @@ export default ({defaults, onSubmitAppointment, establishments, procedures, prof
     {
         setEstablishment(establishment);
         updateProcedures(establishment);
+        setProcedure({id: '-1', name: 'Procedimento'});
+        setProfessional({id: '-1', name: 'Profissional'});
+        setHour({id: '-1', name: 'Horário'});
     }
 
     const onSelectedProcedure = procedure =>
     {
         setProcedure(procedure);
         updateProfessionals(establishment, procedure);
+        setProfessional({id: '-1', name: 'Profissional'});
+        setHour({id: '-1', name: 'Horário'});
     }
 
     const onSelectedProfessional = professional =>
     {
         setProfessional(professional);
+        setHour({id: '-1', name: 'Horário'});
     }
 
     const onSelectedDate = date =>
